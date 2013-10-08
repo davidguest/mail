@@ -1,0 +1,61 @@
+{% extends "master.html" %}
+
+{% block init %}{{ aek.set_aek_version(1.3) }}{% endblock %}
+
+{% block title %}Email{% endblock %}
+
+{% block main_content %}
+<!-- Main Content Goes here -->
+  {% set mail_service = aek.get_service("EMAIL") %}
+
+  {% if mail_service.json.error == "Could not login" or mail_service.json.total < 1 %}
+  <h2>Connection problem</h2>
+  <p>Sorry, we were unable to connect to your email. Please try logging out and re-entering your login details.</p>
+  {% else %}
+
+  {% set unread = mail_service.json.unseen %}
+  
+  {% if unread == 1 %}
+  	{% set messages = "email" %}
+  {% else %}
+  	{% set messages = "emails" %}
+  {% endif %}
+  
+  <h2>Unread messages</h2>
+  <p>You have:</p>
+  <h3 class="bodyblock" style="font-size:120%;background:#fff;">{{ unread }} unread {{ messages }}</h3>
+  
+  <!-- Login button to connect to webmail -->
+  
+  <!-- get login details -->
+  {% set mail_user = mail_service.user_credentials.username %}
+  {% set mail_pass = mail_service.user_credentials.password %}
+
+  <!-- post the user's details to the webmail login page if required -->
+  <form method="post" action="https://webmail/login/page">
+    <input type="hidden" name="username" value="{{ mail_user }}" />
+    <input type="password" name="password" value="{{ mail_pass }}" />
+    <input type="submit" value="Go to email" class="theme-g" />
+  </form>
+  <p>The button connects you to your webmail where you can read or reply to messages.</p>
+  
+  <!-- display messages -->
+  {% set unseen_messages = mail_service.json.unseen_message_details %}
+  {% if unseen_messages|length>0 %}
+  <h2>Quick look</h2>
+  <p>Your most recent unread messages are:</p>
+  <ul class="listview">
+  {% for msg in unseen_messages %}
+      <li>
+        <p><strong>{{ msg.From }}</strong><br />
+        {{ msg.Subject }}<br /><span style="color:#666">{{ msg.Date|format_date("d-M-Y H:i") }}</span></p>
+      </li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% endif %}
+
+  
+<!-- End Main Content -->
+{% endblock %}
