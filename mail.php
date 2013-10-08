@@ -13,7 +13,7 @@ return basic details in JSON format about a user's inbox.
 
 
 //enter mail server details here
-$mailserver = "ssl://imap.exchange.sussex.ac.uk";
+$mailserver = "ssl://imap.domain.com";
 $mailserverport = 993;
 
 if(isset($_REQUEST["username"])) {
