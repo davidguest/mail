@@ -1,0 +1,9 @@
+This simple PHP mail client can log in to an IMAP server and return a summary of the user's inbox, including the total number of emails and details of the most recent unread messages.
+
+The twig page is designed for use in a CampusM web application - it calls the PHP page and displays the details back to the user of the app.
+
+See the screenshot for an example of how this looks in the web app!
+
+Dave Guest
+University of Sussex
+October 2013
