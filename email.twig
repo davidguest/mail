@@ -34,7 +34,7 @@
   <!-- post the user's details to the webmail login page if required -->
   <form method="post" action="https://webmail/login/page">
     <input type="hidden" name="username" value="{{ mail_user }}" />
-    <input type="password" name="password" value="{{ mail_pass }}" />
+    <input type="hidden" name="password" value="{{ mail_pass }}" />
     <input type="submit" value="Go to email" class="theme-g" />
   </form>
   <p>The button connects you to your webmail where you can read or reply to messages.</p>
