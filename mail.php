@@ -27,7 +27,7 @@ if(isset($_REQUEST["password"])) {
 $showloginform = true;
 
 //function to send an IMAP command and present the response
-function get_response($connection, $command) {
+function get_response($connection, $command="") {
 	if ($connection != false) {
 	
 		stream_set_blocking($connection, false);
